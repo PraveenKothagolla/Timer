@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* Styles for smaller screens */
+    @media (max-width: 480px) {
+      #body {
+        height: 80px;
+        width: 160px;
+      }
+
+      #timer {
+        font-size: 30px;
+      }
+
+      #buttons button {
+        height: 24px;
+        width: 48px;
+        font-size: 12px;
+        border-radius: 25px;
+      }
+    }
+
+    /* Styles for larger screens */
+    @media (min-width: 481px) {
+      #body {
+        height: 100px;
+        width: 200px;
+      }
+
+      #timer {
+        font-size: 50px;
+      }
+
+      #buttons button {
+        height: 30px;
+        width: 60px;
+        font-size: 16px;
+        border-radius: 50px;
+      }
+    }
+  </style>
+<body >
+    <div id="body">
+    <div id="timer">00:00:00</div>
+    <div id="buttons">
+    <button id="start">START</button>
+    <button id="stop">STOP</button>
+    <button id="reset">RESET</button>
+    </div>
+    </div>
+    
+    <script>
+         let main=document.body
+         main.style.backgroundColor="beige"
+         main.style.display="flex"
+         main.style.justifyContent="center"
+         main.style.alignItems="center"
+        //  main.style.background="linear-gradient(to top left, #ccffcc 0%, #ff99cc 100%);"
+        // main.style.background="linear-gradient(to right, #ccffcc 0%, #00ccff 100%)";
+       
+        const body=document.getElementById("body")
+        body.style.border="1px solid black"
+        body.style.marginTop="70px"
+    
+        body.style.borderRadius="5px"
+        body.style.background="linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)";
+
+   
+        body.style.height="110px"
+        body.style.width="230px"
+
+        const buttons=document.getElementById("buttons")
+        buttons.style.display="flex"
+        buttons.style.gap="5px"
+        
+        const display=document.getElementById("timer")
+        display.style.fontSize="50px"
+        display.style.marginLeft="20px"
+        const start=document.getElementById("start")
+        start.style.height="30px"
+        start.style.width="63px"
+        start.style.marginLeft="10px"
+        start.style.borderBlockColor="black"
+        start.style.backgroundColor="aqua"
+        start.style.borderRadius="50px"
+        start.addEventListener("click",timeStart)
+        const stop=document.getElementById("stop")
+        stop.style.height="30px"
+        stop.style.width="60px"
+        stop.style.borderBlockColor="black"
+        stop.style.backgroundColor="aqua"
+        stop.style.borderRadius="50px"
+        stop.addEventListener("click",stopTimer)
+        const reset=document.getElementById("reset")
+        reset.addEventListener("click",resetTimer)
+        reset.style.height="30px"
+        reset.style.width="70px"
+        // reset.style.fontSize="14px"
+        reset.style.borderBlockColor="black"
+        reset.style.backgroundColor="aqua"
+        reset.style.borderRadius="50px"
+
+
+        let timer=null
+        let seconds=0
+      
+        function updateTimer(){
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds %3600)/60); 
+           const remainingSeconds = seconds % 60;
+           display.innerHTML = `${padZero(hours)}:${padZero(minutes)}:${padZero(remainingSeconds)}`;
+
+            
+        }
+        function padZero(number) {
+  return number.toString().padStart(2, '0');
+}
+
+        function timeStart(){
+            if(timer==null)
+            {
+                timer =setInterval(()=>{
+                    seconds++
+                    updateTimer()
+                },1000)
+            }
+        }
+
+        function stopTimer(){
+            clearInterval(timer)
+            timer=null
+        }
+        function resetTimer() {
+        stopTimer();
+        seconds= 0;
+        updateTimer();
+      }
+    </script>
+</body>
+</html>
